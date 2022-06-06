@@ -5,10 +5,10 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: test
+    namespace: argocd
     server: https://kubernetes.default.svc
   source:
-    path: test
+    path: config
     repoURL: https://github.com/DBAverage/k8s.git
     targetRevision: main    
   project: default
