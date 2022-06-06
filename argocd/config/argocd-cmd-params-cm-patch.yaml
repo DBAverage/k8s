@@ -1,4 +1,0 @@
-# kubectl patch configmap -n argocd argocd-cmd-params-cm --patch-file /home/tyler/git/k8s/argocd/config/argocd-cmd-params-cm-patch.yaml
-# kubectl delete pod -n argocd argocd-server-*
-data:
-  server.insecure: "true"
