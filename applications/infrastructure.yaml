@@ -6,8 +6,12 @@ spec:
   destination:
     namespace: test
     server: https://kubernetes.default.svc
-  project: default
   source:
     path: test
     repoURL: https://github.com/DBAverage/k8s.git
-    targetRevision: main
+    targetRevision: main    
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true  
