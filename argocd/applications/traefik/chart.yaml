@@ -37,6 +37,7 @@ spec:
           annotations: {
             "pv.beta.kubernetes.io/gid": "65532"
           }
+        podSecurityContext: null
         certResolvers:
           letsencrypt:
             # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
