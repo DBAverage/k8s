@@ -27,7 +27,10 @@ spec:
             loadBalancerIP: 192.168.6.101  
         pilot:
           enabled: true
-          token: "452473e6-6121-4e0a-ba13-1bb66d8088d9"                          
+          token: "452473e6-6121-4e0a-ba13-1bb66d8088d9"     
+        persistence:
+          enabled: true   
+                                  
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
