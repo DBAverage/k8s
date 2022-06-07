@@ -13,7 +13,7 @@ spec:
     helm:
       values: |
         hostname: rancher.mushroomkingdom.io
-        replicas: 3
+        replicas: 1
         tls: external
         ingress:
           enabled: false        
