@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: traefik
+    repoURL: https://helm.traefik.io/traefik
+    targetRevision: 10.20.1
+    helm:
+      values: |
+        additionalArguments:
+          - --serversTransport.insecureSkipVerify=true
+        providers:
+          kubernetesIngress:
+            enabled: false
+        logs:
+          general:
+            level: ERROR
+          access:
+            enabled: true
+        pilot:
+          enabled: true
+          token: "452473e6-6121-4e0a-ba13-1bb66d8088d9"
+        ingressRoute:
+          dashboard:
+            enabled: false
+        service:
+          spec:
+            loadBalancerIP: 192.168.6.101                 
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
