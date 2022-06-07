@@ -3,7 +3,7 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: mayastor-3
   annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
+    storageclass.kubernetes.io/is-default-class: "false"
 parameters:
   repl: '3'
   protocol: 'nvmf'
