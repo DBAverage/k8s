@@ -9,7 +9,17 @@ spec:
   source:
     chart: traefik
     repoURL: https://helm.traefik.io/traefik
-    targetRevision: 10.20.1          
+    targetRevision: 10.20.1
+    helm:
+      values: |
+        providers:
+          kubernetesIngress:
+            enabled: false
+        logs:
+          general:
+            level: ERROR
+          access:
+            enabled: true         
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
