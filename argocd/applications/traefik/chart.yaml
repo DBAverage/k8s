@@ -12,6 +12,8 @@ spec:
     targetRevision: 10.20.1
     helm:
       values: |
+        additionalArguments:
+          - --serversTransport.insecureSkipVerify=true      
         providers:
           kubernetesIngress:
             enabled: false
