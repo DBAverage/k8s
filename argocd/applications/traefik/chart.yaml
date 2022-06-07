@@ -29,7 +29,14 @@ spec:
           enabled: true
           token: "452473e6-6121-4e0a-ba13-1bb66d8088d9"     
         persistence:
-          enabled: true   
+          enabled: true
+          name: data
+          accessMode: ReadWriteOnce
+          size: 128Mi
+          path: /data
+          annotations: {
+            "pv.beta.kubernetes.io/gid": "65532"
+          }
         certResolvers:
           letsencrypt:
             # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
