@@ -14,7 +14,9 @@ spec:
       values: |
         hostname: rancher.mushroomkingdom.io
         replicas: 3
-        tls: external  
+        tls: external
+        ingress:
+          enabled: true        
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cattle-system
