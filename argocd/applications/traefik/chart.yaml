@@ -21,7 +21,7 @@ spec:
           general:
             level: ERROR
           access:
-            enabled: true
+            enabled: false
         service:
           spec:
             loadBalancerIP: 192.168.6.101  
