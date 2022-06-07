@@ -16,7 +16,7 @@ spec:
         replicas: 3
         tls: external
         ingress:
-          enabled: true        
+          enabled: false        
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cattle-system
