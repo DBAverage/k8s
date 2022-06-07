@@ -30,7 +30,27 @@ spec:
           token: "452473e6-6121-4e0a-ba13-1bb66d8088d9"     
         persistence:
           enabled: true   
-                                  
+        certResolvers:
+          letsencrypt:
+            # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
+            email: tylerklier@gmail.com
+            dnsChallenge:
+              # also add the provider's required configuration under env
+              # or expand then from secrets/configmaps with envfrom
+              # cf. https://doc.traefik.io/traefik/https/acme/#providers
+              provider: cloudflare
+              # add futher options for the dns challenge as needed
+              # cf. https://doc.traefik.io/traefik/https/acme/#dnschallenge
+              delayBeforeCheck: 30
+              resolvers:
+                - 1.1.1.1
+                - 8.8.8.8
+            storage: /data/acme.json
+        env:
+          - name: CLOUDFLARE_EMAIL
+            value: tylerklier@gmail.com
+          - name: CLOUDFLARE_DNS_API_TOKEN
+            value: bdea18e908eaf9153ffc3796638a3ce2a8223      
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
