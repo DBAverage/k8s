@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: rancher
+    repoURL: https://releases.rancher.com/server-charts/latest
+    targetRevision: 2.2.0
+    helm:
+      values: |
+        hostname: rancher.mushroomkingdom.io
+        replicas: 3
+        tls: external  
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: cattle-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
