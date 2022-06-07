@@ -1,9 +1,0 @@
-apiVersion: "openebs.io/v1alpha1"
-kind: MayastorPool
-metadata:
-  name: kube10-pool
-  namespace: mayastor
-spec:
-  node: kube10
-  disks: 
-    - /dev/sdb
