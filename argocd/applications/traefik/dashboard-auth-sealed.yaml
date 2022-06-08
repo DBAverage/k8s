@@ -3,7 +3,7 @@ kind: SealedSecret
 metadata:
   creationTimestamp: null
   name: dashboard-auth
-  namespace: default
+  namespace: traefik
 spec:
   encryptedData:
     password: AgCEt37ZFaoR1LrXcvzCU5IaXd5vIG0GynLPHnIsOuMPCSf+A+MHeGPBAKFgBwTW5woxUkYo36Eht/fDGoQfco/a/N6+37bTFpmcnYdiK1geY3jAnxlKOEV5JKfAOFZ3G5IIiiUouLHLHw8aUA9r7N821n46+Z+PARv/bhxl6e7kZaYZIcgK/n3lTgEr5ei4nbRu2bgv9dmIZ7SQ+Z5Uxow/7uNZvnj9X0kiNkNj2RTkeGEOlIV3dq1O1cAheuAz+AO8k00nFB54kszR+zf2qwRyj2//9wO6LLK1r07hkacR6e4HAGzSxz8Yd8N0BBz5cy5uKyOtvTYFewSDT7vc2lZerEZUXRsg+TNdDQ0JutL8KQ3PwhoVohgVuKO6HioY943jozPCkYjGQfU/pIhZJLwG3H8IR8QliodqbCAulgbFASx0palub3f6Fz5dr0r6IF6/l9tcNAmUR00T+XC5j95uwV87m/HsXA3lnIXwX7Z/RL54Lrh0Kxq+AQ45GevvZ/6/FJuC1bN++rG/lFaCgY6oiwvAWQ5LSFv0inTXTAcD+2d870OFkwBQMkFrcRvguwn1haEqLDUVsOjHliFEUjGHSbYVEc8kpdBPX4pay12/XxbWgQBwefeC2ZhFXDD1FYT23EUk4AHhHFK6X8CBXck4pbQAWgCz8uFfRIRRH/LxKHhu64ZgdLO/I4qHNY043HA8N2cmwsMYmkTeO7rj
