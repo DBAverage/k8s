@@ -5,9 +5,6 @@ metadata:
   name: dashboard
   namespace: traefik
 spec:
-  basicAuth:
-    namespace: traefik
-    secret: dashboard-auth
   entryPoints:
     - web
   routes:
@@ -16,3 +13,5 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
+      middlewares:
+        - name: auth          
