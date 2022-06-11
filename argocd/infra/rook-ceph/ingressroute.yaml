@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`rook.mushroomkingdom.io`)
+      services:
+        - name: rook-ceph-mgr-dashboard
+          port: 8443      
