@@ -3,6 +3,8 @@ kind: CephBlockPool
 metadata:
   name: replicapool
   namespace: rook-ceph # namespace:cluster
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 spec:
   failureDomain: host
   replicated:

@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: radarr
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: radarr
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 16.2.3
+    helm:
+      values: |
+        values:
+          env:
+            TZ: "America/New_York"
+          image:
+            tag: "v4.1.0.6175"
+          podSecurityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568      
+          persistence:
+            config:
+              enabled: true
+            media:
+              enabled: true
+              type: custom
+              volumeSpec:
+                nfs:
+                  server: 192.168.1.12
+                  path: /volume1/NAS
+              mountPath: /NAS
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: radarr
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
