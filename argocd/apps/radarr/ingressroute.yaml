@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radarr
+  namespace: radarr
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`radarr.mushroomkingdom.io`)
+      services:
+        - name: radarr
+          port: 7878
