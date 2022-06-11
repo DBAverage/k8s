@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarr
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: sonarr
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 16.2.3
+    helm:
+      values: |
+        env:
+          TZ: "America/New_York"
+        image:
+          tag: "v3.0.8.1507"
+        podSecurityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568      
+        persistence:
+          config:
+            enabled: true
+          media:
+            enabled: true
+            type: custom
+            volumeSpec:
+              nfs:
+                server: 192.168.1.12
+                path: /volume1/NAS
+            mountPath: /NAS
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: sonarr
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
