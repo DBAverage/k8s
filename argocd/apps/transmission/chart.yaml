@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: transmission
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: transmission
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 8.3.2
+    helm:
+      values: |
+        env:
+          TZ: "America/New_York"
+          TRANSMISSION_DOWNLOAD_DIR: "/NAS/Download/complete/misc"
+        image:
+          tag: "v3.00"
+        podSecurityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568      
+        persistence:
+          config:
+            enabled: true
+          downloads:
+            enabled: true
+            type: custom
+            volumeSpec:
+              nfs:
+                server: 192.168.1.12
+                path: /volume1/NAS
+            mountPath: /NAS
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: transmission
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
