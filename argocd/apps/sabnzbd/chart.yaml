@@ -17,7 +17,7 @@ spec:
         env:
           TZ: "America/New_York"
           HOST_WHITELIST_ENTRIES: >-
-            sabnzbd.mushroomkingdom.com
+            sabnzbd.mushroomkingdom.io
         persistence:
           config:
             enabled: true
