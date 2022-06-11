@@ -2,8 +2,8 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: sonarr
-  namespace: sonarr
+  name: transmission
+  namespace: transmission
 spec:
   entryPoints:
     - web
