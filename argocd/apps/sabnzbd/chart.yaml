@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sabnzbd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: sabnzbd
+    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: 9.3.2
+    helm:
+      values: |
+        image:
+          tag: "v3.5.3"
+        env:
+          TZ: "America/New_York"
+          HOST_WHITELIST_ENTRIES: >-
+            sabnzbd.mushroomkingdom.com
+        persistence:
+          config:
+            enabled: true
+          media:
+            enabled: true
+            type: custom
+            volumeSpec:
+              nfs:
+                server: 192.168.1.12
+                path: /volume1/NAS
+            mountPath: /NAS
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: sabnzbd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   

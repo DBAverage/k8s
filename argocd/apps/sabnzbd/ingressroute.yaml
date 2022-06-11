@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sabnzbd
+  namespace: sabnzbd
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`sabnzbd.mushroomkingdom.io`)
+      services:
+        - name: sabnzbd
+          port: 8080      
