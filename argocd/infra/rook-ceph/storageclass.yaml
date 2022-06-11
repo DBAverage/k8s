@@ -3,8 +3,6 @@ kind: CephBlockPool
 metadata:
   name: replicapool
   namespace: rook-ceph # namespace:cluster
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
 spec:
   failureDomain: host
   replicated:
@@ -21,6 +19,8 @@ kind: StorageClass
 metadata:
   name: rook-ceph-block
 # Change "rook-ceph" provisioner prefix to match the operator namespace if needed
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: rook-ceph.rbd.csi.ceph.com
 parameters:
   # clusterID is the namespace where the rook cluster is running
