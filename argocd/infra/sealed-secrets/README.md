@@ -27,3 +27,4 @@
 - delete plaintext secret manifest
 
         rm basic-auth.yaml
+        
