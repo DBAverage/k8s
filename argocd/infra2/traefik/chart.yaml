@@ -53,12 +53,10 @@ spec:
               resolvers:
                 - 1.1.1.1
                 - 8.8.8.8
-            storage: /data/acme.json
-        env:
-          - name: CLOUDFLARE_EMAIL
-            value: tylerklier@gmail.com
-          - name: CLOUDFLARE_DNS_API_TOKEN
-            value: bdea18e908eaf9153ffc3796638a3ce2a8223      
+            storage: /data/acme.json    
+        envFrom:
+          - secretRef:
+            name: cloudflare
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
