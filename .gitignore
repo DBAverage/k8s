@@ -3,3 +3,10 @@
 ################################################################################
 
 /.vs
+**scratch.yml
+**controlplane*.yaml
+**worker*.yaml
+**talosconfig
+**kubeconfig
+**.terraform
+**terraform.tfstate.backup

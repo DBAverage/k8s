@@ -1,0 +1,7 @@
+---
+
+# pip install -r ~/.ansible/collections/ansible_collections/community/vmware/requirements.txt
+
+
+collections:
+  - name: community.vmware

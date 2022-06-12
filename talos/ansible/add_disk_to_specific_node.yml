@@ -1,0 +1,63 @@
+---
+  - name: Delete all vm guests
+    hosts: localhost
+    gather_facts: no
+
+    vars_files:
+      - vmware_vars.yml
+
+    vars: 
+      guest_base: kube
+      vm_folder: Datacenter/vm/Kubernetes
+      datacenter: Datacenter
+      datastore: esxi-2.2
+      disk_size_gb: 100
+
+    vars_prompt:
+
+      - name: guest_number
+        prompt: What is the guest number?
+        private: no     
+
+      - name: disk_number
+        prompt: What is the disk number to add/update?
+        private: no      
+
+    tasks:        
+
+    - name: get list of guests
+      community.vmware.vmware_vm_info:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        folder: '{{ vm_folder }}'
+        validate_certs: false
+      register: vm_info
+
+    - name: write output to yaml
+      copy:
+        content: "{{ vm_info.virtual_machines | to_yaml }}"
+        dest: /tmp/talos_guests.yaml
+
+    - name: get guests
+      script: 
+        cmd: get_guests.py "{{ guest_base }}"
+        executable: python3
+      register: get_guests_output
+
+    - name: Add disks
+      community.vmware.vmware_guest_disk:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        name: "{{ guest_base + guest_number }}"
+        datacenter: "{{ datacenter }}"
+        disk: #name, uuid, moid
+          - size_gb: "{{ disk_size_gb }}"
+            datastore: "{{ datastore }}"
+            unit_number: "{{ disk_number }}"
+            state: present
+            type: thin
+            scsi_controller: 0
+        validate_certs: false
+      register: os_disk

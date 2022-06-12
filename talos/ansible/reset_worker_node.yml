@@ -1,0 +1,88 @@
+---
+  - name: Reset talos guest
+    hosts: localhost
+    gather_facts: no
+
+    vars_files:
+      - vmware_vars.yml
+      - unifi_vars.yml
+
+    vars: 
+      guest_base: kube
+
+    vars_prompt:
+
+      - name: guest_number
+        prompt: What is the guest number?
+        private: no        
+
+    tasks:     
+
+    - name: set guest_name
+      set_fact:
+        guest_name: "{{ guest_base + guest_number }}"
+
+    - name: get guest info
+      community.vmware.vmware_guest_info:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'      
+        name: "{{ guest_name }}"
+        datacenter: Datacenter
+        validate_certs: false
+      register: guest_info
+
+    - name: set mac_address
+      set_fact:
+        mac_address: "{{ guest_info.instance.hw_eth0.macaddress | trim }}"
+
+    - name: get ip address 
+      script: 
+        cmd: get_ip_address.py "{{ mac_address }}" "{{ unifi_username }}" "{{ unifi_password }}"
+        executable: python3
+      register: get_ip_address_output
+      until: "{{ get_ip_address_output.rc == 0 }}"
+      retries: 20
+      delay: 10
+
+    - name: set temp_ip_address
+      set_fact:
+        temp_ip_address: "{{ get_ip_address_output.stdout | trim }}"
+
+    - name: reset talos guest
+      command: talosctl reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --reboot -n "{{ temp_ip_address }}"
+
+    - name: wait 120 seconds for guest to start
+      wait_for:
+        timeout: 120
+
+    - name: get ip address 
+      script: 
+        cmd: get_ip_address.py "{{ mac_address }}" "{{ unifi_username }}" "{{ unifi_password }}"
+        executable: python3
+      register: get_ip_address_output
+      until: "{{ get_ip_address_output.rc == 0 }}"
+      retries: 20
+      delay: 10
+
+    - name: set temp_ip_address
+      set_fact:
+        temp_ip_address: "{{ get_ip_address_output.stdout | trim }}"
+
+    - name: apply talos config --insecure
+      command: talosctl apply-config --insecure --nodes "{{ temp_ip_address }}"  --file "./files/worker_{{ guest_name }}.yaml"
+      register: config
+
+    - name: apply talos config
+      command: talosctl apply-config --nodes "{{ temp_ip_address }}"  --file "./files/worker_{{ guest_name }}.yaml"
+      when: "{{ config.rc == 1 }}"
+
+    - name: wait 30 seconds for guest to start
+      wait_for:
+        timeout: 30
+      when: "{{ config.rc == 1 }}"        
+
+    - name: apply talos config
+      command: talosctl reboot --nodes "{{ temp_ip_address }}"
+      when: "{{ config.rc == 1 }}"
+

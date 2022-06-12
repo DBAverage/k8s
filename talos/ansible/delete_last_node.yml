@@ -1,0 +1,62 @@
+---
+  - name: Delete all vm guests
+    hosts: localhost
+    gather_facts: no
+
+    vars_files:
+      - vmware_vars.yml
+
+    vars: 
+      guest_base: kube
+      vm_folder: Datacenter/vm/Kubernetes
+
+    tasks:        
+
+    - name: get list of guests
+      community.vmware.vmware_vm_info:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        folder: '{{ vm_folder }}'
+        validate_certs: false
+      register: vm_info
+
+    - name: write output to yaml
+      copy:
+        content: "{{ vm_info.virtual_machines | to_yaml }}"
+        dest: /tmp/talos_guests.yaml
+
+    - name: loop through all guests
+      block:
+      - name: get guest name
+        script: 
+          cmd: get_last_guest.py "{{ guest_base }}"
+          executable: python3
+        register: get_last_guest_output
+
+      - name: set guest_name  
+        set_fact:
+          guest_name: "{{ get_last_guest_output.stdout | trim }}"
+
+      - name: power down guest
+        community.vmware.vmware_guest:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          name: "{{ guest_name }}"
+          state: poweredoff
+          validate_certs: False
+
+      - name: remove guest 
+        community.vmware.vmware_guest:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          name: "{{ guest_name }}"
+          delete_from_inventory: True
+          state: absent     
+          validate_certs: False
+
+      - name: debug guest_name
+        debug:
+          msg: "Deleted {{ guest_name }}"          

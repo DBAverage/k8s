@@ -1,0 +1,80 @@
+---
+  - name: Configure cluster
+    hosts: localhost
+    gather_facts: no
+
+    vars_files:
+      - vmware_vars.yml
+      - unifi_vars.yml
+    
+    vars:
+      guest_name: kube1
+      control_plane_ip: 192.168.6.100
+
+    tasks:
+
+      - name: get guest info
+        community.vmware.vmware_guest_info:
+          hostname: '{{ vcenter_hostname }}'
+          username: '{{ vcenter_username }}'
+          password: '{{ vcenter_password }}'      
+          name: "{{ guest_name }}"
+          datacenter: Datacenter
+          validate_certs: false
+        register: guest_info
+
+      - name: set mac_address
+        set_fact:
+          mac_address: "{{ guest_info.instance.hw_eth0.macaddress | trim }}"
+
+      - name: get ip address 
+        script: 
+          cmd: get_ip_address.py "{{ mac_address }}" "{{ unifi_username }}" "{{ unifi_password }}"
+          executable: python3
+        register: get_ip_address_output
+        until: "{{ get_ip_address_output.rc == 0 }}"
+        retries: 10
+        delay: 10
+
+      - name: set temp_ip_address
+        set_fact:
+          temp_ip_address: "{{ get_ip_address_output.stdout | trim }}"
+
+      - name: configure talosctl
+        command: talosctl --talosconfig ./files/talosconfig config endpoint "{{ temp_ip_address }}"
+
+      - name: merge configuratin
+        command: talosctl config merge ./files/talosconfig
+
+      - name: bootstrap cluster
+        command: talosctl --talosconfig ./files/talosconfig bootstrap --nodes "{{ temp_ip_address }}"
+
+      - name: talsctl config endpoint
+        command: talosctl --talosconfig ./files/talosconfig config endpoint "{{ control_plane_ip }}"
+
+      - name: talsctl config node
+        command: talosctl --talosconfig ./files/talosconfig config node "{{ control_plane_ip }}"
+
+      - name: wait 30 seconds for cluster to initialize
+        wait_for:
+          timeout: 30
+
+      - name: get kubeconfig
+        command: talosctl --talosconfig ./files/talosconfig kubeconfig .
+        register: get_kubeconfig
+        until: "{{ get_kubeconfig.rc == 0 }}"
+        retries: 10
+        delay: 10
+
+      - name: move kubeconfig
+        copy: 
+          src: kubeconfig
+          dest: ~/.kube/config
+          backup: true
+
+      - name: move talosconfig
+        copy: 
+          src: ./files/talosconfig
+          dest: ~/.talos/config
+          backup: true
+          

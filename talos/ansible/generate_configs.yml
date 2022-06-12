@@ -1,0 +1,75 @@
+---
+  - name: Create a VM from a template
+    hosts: localhost
+    gather_facts: no
+
+    vars_files:
+      - vmware_vars.yml
+      - unifi_vars.yml
+    
+    vars:
+
+      guest_base: kube
+      datastore: esxi-2.2
+      vm_folder: Datacenter/vm/Kubernetes
+
+      vip_address: 192.168.6.100
+      dns_server_1: 192.168.1.11
+      dns_server_2: 1.1.1.1
+      cpu_cores: 2
+      ram_mb: 4096
+      disk_size_gb: 10
+      
+      cluster_name: k8s
+      
+    tasks:
+
+    - name: set cluster endpoint 
+      set_fact:
+        cluster_endpoint: "{{ 'https://' + vip_address +  ':6443/'}}"
+
+    - name: stage control patch 
+      template:
+        src: files/controlpatch.yaml.j2
+        dest: /tmp/controlpatch.yaml
+
+    - name: stage worker patch 
+      template:
+        src: files/workerpatch.yaml.j2
+        dest: /tmp/workerpatch.yaml
+
+    - name: generate configs
+      command: talosctl gen config ""{{ cluster_name }}"" ""{{ cluster_endpoint }}"" --config-patch-control-plane @/tmp/controlpatch.yaml --config-patch-worker @/tmp/workerpatch.yaml --output-dir /tmp
+
+    - name: copy control configs
+      copy:
+        src: /tmp/controlplane.yaml
+        dest: "files/controlplane_kube{{ item }}.yaml"
+      loop: "{{ query('sequence', 'start=1 end=10') }}"
+
+    - name: update control configs
+      ansible.builtin.replace:
+        path: "files/controlplane_kube{{ item }}.yaml"
+        after: 'network:'
+        regexp: '(?<=hostname:\s)stub_hostname'
+        replace: 'kube{{ item }}'
+      loop: "{{ query('sequence', 'start=1 end=10') }}"
+
+    - name: copy worker configs
+      copy:
+        src: /tmp/worker.yaml
+        dest: "files/worker_kube{{ item }}.yaml"
+      loop: "{{ query('sequence', 'start=1 end=10') }}"
+
+    - name: update worker configs
+      ansible.builtin.replace:
+        path: "files/worker_kube{{ item }}.yaml"
+        after: 'network:'
+        regexp: '(?<=hostname:\s)stub_hostname'
+        replace: 'kube{{ item }}'
+      loop: "{{ query('sequence', 'start=1 end=10') }}"
+
+    - name: copy talos config
+      copy:
+        src: /tmp/talosconfig
+        dest: files/talosconfig

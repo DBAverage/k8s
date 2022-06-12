@@ -1,0 +1,54 @@
+---
+  - name: Create a VM from a template
+    hosts: localhost
+    gather_facts: no
+
+    vars_files:
+      - vmware_vars.yml
+    
+    vars:
+
+      guest_base: kube
+
+    vars_prompt:
+
+      - name: node_number
+        prompt: What is the node number to drop?
+        private: no
+
+    tasks:
+
+    - name: set guest_name  
+      set_fact:
+        guest_name: "{{ guest_base + node_number }}"
+
+    - name: power down guest
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        name: "{{ guest_name }}"
+        state: poweredoff
+        validate_certs: False
+      register: power_down
+      failed_when:
+        - "{{ power_down.failed == true }}"
+        - "{{ power_down.msg != 'Folder is required parameter while deploying new virtual machine' }}"
+
+    - name: remove guest 
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        name: "{{ guest_name }}"
+        delete_from_inventory: True
+        state: absent     
+        validate_certs: False
+
+    - name: remove node from cluster
+      command: kubectl delete node "{{ guest_name }}"
+
+    - name: debug guest_name
+      debug:
+        msg: "Deleted {{ guest_name }}"
+
