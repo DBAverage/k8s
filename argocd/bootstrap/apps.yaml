@@ -5,14 +5,16 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    name: ''
     namespace: argocd
-    server: 'https://kubernetes.default.svc'
-  source:
-    path: argocd/apps
-    repoURL: 'https://github.com/DBAverage/k8s.git'
-    targetRevision: main
+    server: https://kubernetes.default.svc
   project: default
+  source:
+    directory:
+      jsonnet: {}
+      recurse: true
+    path: argocd/apps
+    repoURL: https://github.com/DBAverage/k8s.git
+    targetRevision: main
   syncPolicy:
     automated:
       prune: true
