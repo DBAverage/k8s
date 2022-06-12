@@ -37,7 +37,9 @@ spec:
               command: ["sh", "-c", "chmod -Rv 600 /data/*"]
               volumeMounts:
                 - name: data
-                  mountPath: /data          
+                  mountPath: /data     
+          tls:
+            enabled: true
         certResolvers:
           letsencrypt:
             # for challenge options cf. https://doc.traefik.io/traefik/https/acme/
