@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: awx-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: awx-operator
+    repoURL: https://ansible.github.io/awx-operator/
+    targetRevision: 0.22.0
+    helm:
+      values: |
+        admin_user: admin
+        admin_email: tylerklier@gmail.com
+        admin_password_secret: awx-admin-password  
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: awx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
