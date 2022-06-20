@@ -23,6 +23,7 @@ spec:
         persistence:
           config:
             enabled: true
+            mountPath: /config
             existingClaim: radarr-config         
           media:
             enabled: true
