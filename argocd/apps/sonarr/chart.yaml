@@ -31,6 +31,10 @@ spec:
                 server: 192.168.1.12
                 path: /volume1/NAS
             mountPath: /NAS
+        metrics:
+          enabled: true
+          prometheusRule:
+            enabled: true                        
   destination:
     server: "https://kubernetes.default.svc"
     namespace: sonarr
