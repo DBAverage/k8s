@@ -33,9 +33,6 @@ spec:
             mountPath: /NAS
         metrics:
         enabled: true
-        prometheusRule:
-          enabled: true
-
   destination:
     server: "https://kubernetes.default.svc"
     namespace: radarr
