@@ -14,7 +14,9 @@ spec:
       values: |
         admin_user: admin
         admin_email: tylerklier@gmail.com
-        admin_password_secret: awx-admin-password  
+        admin_password_secret: awx-admin-password
+        ingress_type: route
+        route_tls_termination_mechanism: Passthrough
   destination:
     server: "https://kubernetes.default.svc"
     namespace: awx
