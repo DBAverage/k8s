@@ -2,17 +2,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus
+  name: kube-prometheus-stack
   namespace: argocd
 spec:
   project: default
   source:
-    chart: prometheus
+    chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 15.10.1
+    targetRevision: 36.0.3
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: prometheus
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
