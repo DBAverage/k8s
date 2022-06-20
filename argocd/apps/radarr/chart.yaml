@@ -23,10 +23,7 @@ spec:
         persistence:
           config:
             enabled: true
-            spec:
-              resources:
-                requests:
-                  storage: 3Gi            
+            existingClaim: radarr-config         
           media:
             enabled: true
             type: custom
