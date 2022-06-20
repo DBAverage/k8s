@@ -35,16 +35,7 @@ spec:
         enabled: true
         prometheusRule:
           enabled: true
-          rules:
-              - alert: RadarrDown
-                annotations:
-                  description: Radarr service is down.
-                  summary: Radarr is down.
-                expr: |
-                  radarr_system_status == 0
-                for: 5m
-                labels:
-                  severity: critical
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: radarr
