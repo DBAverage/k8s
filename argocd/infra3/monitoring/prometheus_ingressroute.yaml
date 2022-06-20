@@ -11,5 +11,5 @@ spec:
     - kind: Rule
       match: Host(`prometheus.mushroomkingdom.io`)
       services:
-        - name: prometheus-server
-          port: 80      
+        - name: kube-prometheus-stack-prometheus
+          port: 9090      
