@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-alertmanager
+  namespace: prometheus
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`alertmanager.mushroomkingdom.io`)
+      services:
+        - name: prometheus-alertmanager
+          port: 80     
