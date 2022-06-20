@@ -12,6 +12,20 @@ spec:
     targetRevision: 36.0.3
     helm:
       values: |
+        prometheus:
+              prometheusSpec:
+                podMonitorNamespaceSelector:
+                  any: true
+                podMonitorSelector: {}
+                podMonitorSelectorNilUsesHelmValues: false
+                ruleNamespaceSelector:
+                  any: true
+                ruleSelector: {}
+                ruleSelectorNilUsesHelmValues: false
+                serviceMonitorNamespaceSelector:
+                  any: true
+                serviceMonitorSelector: {}
+                serviceMonitorSelectorNilUsesHelmValues: false      
         grafana:
           admin:
             existingSecret: grafana-admin
