@@ -9,7 +9,7 @@ spec:
   source:
     chart: awx-operator
     repoURL: https://ansible.github.io/awx-operator/
-    targetRevision: 0.22.0
+    targetRevision: 0.28.0
   destination:
     server: "https://kubernetes.default.svc"
     namespace: awx
