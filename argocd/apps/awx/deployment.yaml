@@ -6,7 +6,7 @@ metadata:
   namespace: awx
 spec:
   service_type: ClusterIP
-  ingress_type: route
+  ingress_type: none
   hostname: awx.mushroomkingdom.io
   admin_user: admin
   admin_email: tylerklier@gmail.com
