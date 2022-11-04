@@ -5,9 +5,7 @@ metadata:
   name: awx
   namespace: awx
 spec:
-  service_type: LoadBalancer
-  loadbalancer_protocol: https
-  loadbalancer_port: 443  
+  service_type: ClusterIP
   ingress_type: none
   hostname: awx.mushroomkingdom.io
   admin_user: admin
