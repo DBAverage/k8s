@@ -5,7 +5,7 @@ metadata:
   name: awx
   namespace: awx
 spec:
-  service_type: ClusterIP
+  service_type: NodePort
   ingress_type: Ingress
   hostname: awx.mushroomkingdom.io
   admin_user: admin
