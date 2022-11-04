@@ -6,7 +6,7 @@ metadata:
   namespace: awx
 spec:
   service_type: NodePort
-  ingress_type: None
+  ingress_type: one
   hostname: awx.mushroomkingdom.io
   admin_user: admin
   admin_email: tylerklier@gmail.com
