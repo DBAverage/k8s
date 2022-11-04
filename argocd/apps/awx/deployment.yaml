@@ -5,10 +5,10 @@ metadata:
   name: awx
   namespace: awx
 spec:
-  service_type: ClusterIP
-  ingress_type: none
-  hostname: awx.mushroomkingdom.io
-  admin_user: admin
-  admin_email: tylerklier@gmail.com
-  admin_password_secret: awx-admin-password
-  route_tls_termination_mechanism: Passthrough  
+  service_type: NodePort
+  # ingress_type: none
+  # hostname: awx.mushroomkingdom.io
+  # admin_user: admin
+  # admin_email: tylerklier@gmail.com
+  # admin_password_secret: awx-admin-password
+  # route_tls_termination_mechanism: Passthrough  
