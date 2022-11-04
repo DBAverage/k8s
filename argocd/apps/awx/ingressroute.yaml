@@ -9,7 +9,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Host(`awx.mushroomkingdom.io`)
+      match: Host(awx.mushroomkingdom.io) || Host(awx.mushroomkingdom.io) && Path(/api)
       services:
         - name: awx-service
           port: 80
