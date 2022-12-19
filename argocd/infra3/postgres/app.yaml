@@ -9,7 +9,7 @@ spec:
   source:
     path: installers/kubectl
     repoURL: 'https://github.com/CrunchyData/postgres-operator'
-    targetRevision: v4.7.7
+    targetRevision: fd5c247fff38b15e134caf3cd40901cfbb927215
     directory:
       include: postgres-operator.yml 
   project: default
