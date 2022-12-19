@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgo
+spec:
+  destination:
+    name: pgo
+    namespace: pgo
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: postgres-operator/installers/kubectl/postgres-operator.yml
+    repoURL: 'https://github.com/CrunchyData/postgres-operator'
+    targetRevision: v4.7.8
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
