@@ -4,7 +4,6 @@ metadata:
   name: pgo
 spec:
   destination:
-    name: pgo
     namespace: pgo
     server: 'https://kubernetes.default.svc'
   source:
