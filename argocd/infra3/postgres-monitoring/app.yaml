@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-monitoring
+  namespace: argocd  
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/CrunchyData/postgres-operator-examples
+    targetRevision: e92ade6365f6f89b3d5d9da535f1ecad93d368d3
+    path: kustomize/monitoring
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: postgres-operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true       
