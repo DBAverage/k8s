@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pgo
+  name: postgres-operator
   namespace: argocd  
 spec:
   project: default
@@ -11,7 +11,7 @@ spec:
     path: kustomize/install/default/
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: pgo
+    namespace: postgres-operator
   syncPolicy:
     automated:
       prune: true
