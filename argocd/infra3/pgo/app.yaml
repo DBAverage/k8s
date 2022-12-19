@@ -11,7 +11,7 @@ spec:
     path: kustomize/install/default/
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: nfs
+    namespace: pgo
   syncPolicy:
     automated:
       prune: true
