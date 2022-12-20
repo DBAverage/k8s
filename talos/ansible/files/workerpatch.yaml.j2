@@ -2,7 +2,12 @@
   path: /machine/network
   value:
     hostname: stub_hostname
-    
+
+- op: add
+  path: /machine/sysctl
+  value:
+    vm.hugepages: 1024
+
 - op: replace
   path: /cluster/extraManifests
   value:

@@ -22,12 +22,14 @@ spec:
             level: ERROR
           access:
             enabled: false
+        entryPoints:
+          postgres:
+            address: ":5432"            
         service:
           spec:
             loadBalancerIP: 192.168.6.101  
         pilot:
-          enabled: true
-          token: "452473e6-6121-4e0a-ba13-1bb66d8088d9"     
+          enabled: false   
         persistence:
           enabled: true
         deployment:
