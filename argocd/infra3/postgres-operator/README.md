@@ -3,6 +3,7 @@
 - Huge pages needs to be disabled on host, or at least properly working with kubernetes
 - Connection details are stored in a secret named \<clusterName>-pguser-\<userName>
     <br/>`kubectl get secret -n postgres-operator <clusterName>-pguser-<userName> -o json | jq '.data | map_values(@base64d)'`
+- Added postgres traefik entrypoint to use ingressroutes    
 - To connect either change service to NodePort, use ingressroute, or a temporary port forward
     <br/> `kubectl port-forward pod/<clusterName>-instance1-<podsuffix> 5432:5432`
 
