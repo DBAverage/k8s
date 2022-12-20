@@ -6,7 +6,7 @@ metadata:
   namespace: pg-test
 spec:
   entryPoints:
-    - web
+    - postgres
   routes:
     - match: HostSNI(`pg-test.mushroomkingdom.io`)
       services:
