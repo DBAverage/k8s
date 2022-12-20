@@ -12,3 +12,5 @@ spec:
       services:
         - name: pg-test-primary
           port: 5432
+  tls:
+    passthrough: true
