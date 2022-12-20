@@ -57,10 +57,7 @@ spec:
             storage: /data/acme.json    
         envFrom:
           - secretRef:
-              name: cloudflare
-        ports:
-          postgres:
-            address: ":5432"                  
+              name: cloudflare             
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
