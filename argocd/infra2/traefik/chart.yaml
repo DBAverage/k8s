@@ -28,11 +28,7 @@ spec:
             loadBalancerIP: 192.168.6.101
         ingressroute:
           dashboard:
-            entryPoints:
-              - web
-            matchRule: Host(`traefik.mushroomkingdom.io`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
-            middlewares:
-              - name: auth
+            enabled: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik
