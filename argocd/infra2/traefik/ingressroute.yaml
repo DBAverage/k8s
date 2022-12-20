@@ -6,7 +6,7 @@ metadata:
   namespace: traefik
 spec:
   entryPoints:
-    - postgres
+    - web
   routes:
     - match: Host(`traefik.mushroomkingdom.io`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
