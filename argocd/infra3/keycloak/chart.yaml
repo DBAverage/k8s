@@ -12,8 +12,9 @@ spec:
     targetRevision: 13.0.0
     helm:
       values: |
-        auth.existingSecret: admin-auth
-        auth.passwordSecretKey: password      
+        auth:
+          existingSecret: admin-auth
+          passwordSecretKey: password
   destination:
     server: "https://kubernetes.default.svc"
     namespace: keycloak
