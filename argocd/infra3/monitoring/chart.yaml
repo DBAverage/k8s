@@ -2,14 +2,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-prometheus-stack
+  name: keycloak
   namespace: argocd
 spec:
   project: default
   source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 36.0.3
+    chart: keycloak
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 13.0.0
     helm:
       values: |
         prometheus:
@@ -30,7 +30,7 @@ spec:
             passwordKey: password            
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring
+    namespace: keycloak
   syncPolicy:
     automated:
       prune: true
