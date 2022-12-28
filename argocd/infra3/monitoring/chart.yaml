@@ -30,7 +30,7 @@ spec:
             passwordKey: password            
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: kube-prometheus-stack
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
