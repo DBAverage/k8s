@@ -7,9 +7,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: keycloak
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 13.0.0
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 36.0.3
     helm:
       values: |
         prometheus:
@@ -30,7 +30,7 @@ spec:
             passwordKey: password            
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: keycloak
+    namespace: kube-prometheus-stack
   syncPolicy:
     automated:
       prune: true
