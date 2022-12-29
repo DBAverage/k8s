@@ -23,7 +23,7 @@ spec:
         postgres:
           enabled: false
         externalDatabase:
-          host: keycloakpg-primary.keycloakpg.svc
+          host: keycloakpg-primary.keycloak.svc
           port: 5432
           user: appuser
           existingSecret: keycloakpg-pguser-appuser
