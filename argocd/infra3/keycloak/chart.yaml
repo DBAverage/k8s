@@ -16,8 +16,12 @@ spec:
           level: INFO
         auth:
           adminUser: admin
-          existingSecret: admin-auth
+          existingSecret: keycloak-auth
           passwordSecretKey: password
+        postgres:
+          auth:
+            existingSecret: keycloak-postgres
+            passwordKey: postgres-password
   destination:
     server: "https://kubernetes.default.svc"
     namespace: keycloak
