@@ -13,7 +13,7 @@ spec:
       replicas: 1
       resources:
         limits:
-          cpu: 0.5
+          cpu: "0.5"
           memory: 2Gi    
       dataVolumeClaimSpec:
         accessModes:
