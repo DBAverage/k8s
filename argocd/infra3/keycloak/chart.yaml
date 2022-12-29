@@ -27,6 +27,7 @@ spec:
           port: 5432
           user: appuser
           existingSecret: keycloakpg-pguser-appuser
+          existingSecretPasswordKey: password
           database: appdb
   destination:
     server: "https://kubernetes.default.svc"
