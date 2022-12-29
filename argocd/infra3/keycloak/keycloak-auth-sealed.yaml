@@ -4,6 +4,8 @@ metadata:
   creationTimestamp: null
   name: keycloak-auth
   namespace: keycloak
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"     
 spec:
   encryptedData:
     password: AgBtxku6/yk2LfiX6yn4QOjx/5ImQ61Y3lQM1+wKuwyK+uvmVvI7NtgapDq2L7XLP8Gbqiy/8BIymnPeXWWCyaUZlkTLMwBNq9clMauutebiqXncGQHwL8TM0JbyJ9kBXjjb4DtMy7DFg1EUAIx1g7hO6Go41lP+l/QWZWhOXOTt6xEPMyib4o5iXMMipQYxiaPH+w1HQ6xp/90VfxxVJoBrE4Lfa18JlQiUlyRjXOhQiWjqC4kpWVxP3CuAtSmGYZjWH8cWL4PaMvvU2O1tRFg1Kbs+m0/ZqSM5pNL82zy8ZHKZxekAUV5WRPwJxHn0eQ/yQWSmdlPpnF3GEHrGKXVXs/pDhyLoXo6Ty/2J7W9puI3VDKdLzCRyg2kSmpShL3JhfsStGAINqpbGFyzNm2+pEUfL185Tiuynx0Ndcf7xVeowQfJ7+p8n/mzCsnI0ukDlmL/rWSZceSUoYZ4qrQXH6AEKvDCPj7B9ZbVBWu72jovZjnSzyh4w3trObVYGy/OSMUUOzGwQwAx6hvs0QRLOL0DRkX6xWlHrGaG4jN0/+PlYkEctH2Ar/AcMi8z4mDDYmIreO7OkDwDb//JmBmud3TVyHJLugXPLQKXCwBj7puI6PR4nj2PkC2vJ4pdzTExTly9grOB8J2DMsTxx0PaEkRVXRRawMVFuggeeYNiv6vbXEMLthu7Zfl3dUxr664OxK4UGFlkD3HTF75tP
