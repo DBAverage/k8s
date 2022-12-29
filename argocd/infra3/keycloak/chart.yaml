@@ -20,7 +20,7 @@ spec:
           adminUser: admin
           existingSecret: keycloak-auth
           passwordSecretKey: password
-        postgres:
+        postgresql:
           enabled: false
         externalDatabase:
           host: keycloakpg-primary.keycloak.svc
