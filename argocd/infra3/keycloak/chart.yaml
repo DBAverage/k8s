@@ -15,6 +15,7 @@ spec:
         logging:
           level: INFO
         auth:
+          adminUser: admin
           existingSecret: admin-auth
           passwordSecretKey: password
   destination:
