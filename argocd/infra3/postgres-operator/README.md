@@ -37,4 +37,19 @@ spec:
             - "ReadWriteOnce"
             resources:
               requests:
-                storage: 8Gi```
+                storage: 8Gi
+```
+
+
+# Force reset an unknown password
+
+  - connect to pod shell
+  - `sed -ibak 's/^\([^#]*\)md5/\1trust/g' /opt/bitnami/postgresql/conf/pg_hba.conf`
+  - `pg_ctl reload`
+  - ```
+    psql -U postgres
+    alter user postgres with password 'NEW_PASSWORD';
+    \q
+    ```
+  - `sed -i 's/^\([^#]*\)trust/\1md5/g' /opt/bitnami/postgresql/conf/pg_hba.conf`
+  - `pg_ctl reload`
