@@ -18,18 +18,14 @@ spec:
           adminUser: admin
           existingSecret: keycloak-auth
           passwordSecretKey: password
-        # postgres:
-        #   auth:
-        #     existingSecret: keycloak-postgres
-        #     passwordKey: postgres-password
         postgres:
           enabled: false
         externalDatabase:
-          host: keycloak_pg-primary.keycloak_pg.svc
+          host: keycloakpg-primary.keycloakpg.svc
           port: 5432
-          user: app_user
-          existingSecret: keycloak_pg-pguser-app_user
-          database: app_db
+          user: appuser
+          existingSecret: keycloakpg-pguser-appuser
+          database: appdb
   destination:
     server: "https://kubernetes.default.svc"
     namespace: keycloak

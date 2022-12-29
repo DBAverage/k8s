@@ -1,7 +1,7 @@
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
-  name: keycloak_pg
+  name: keycloakpg
   namespace: keycloak
 spec:
   image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-14.6-0
@@ -20,9 +20,9 @@ spec:
           requests:
             storage: 1Gi
       users:
-        - name: app_user
+        - name: appuser
           databases:
-            - app_db          
+            - appdb          
   backups:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.41-0
