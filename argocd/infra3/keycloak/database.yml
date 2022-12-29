@@ -11,10 +11,10 @@ spec:
   instances:
     - name: instance1
       replicas: 1
-      # resources:
-      #   limits:
-      #     cpu: 2.0
-      #     memory: 4Gi    
+      resources:
+        limits:
+          cpu: 0.5
+          memory: 2Gi    
       dataVolumeClaimSpec:
         accessModes:
         - "ReadWriteOnce"
