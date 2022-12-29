@@ -13,7 +13,7 @@ spec:
     helm:
       values: |
         logging:
-          level: DEBUG
+          level: INFO
         auth:
           existingSecret: admin-auth
           passwordSecretKey: password
