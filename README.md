@@ -27,7 +27,7 @@ This repo is intented for my personal use managing the kubernetes setup in my ho
 - https://github.com/traefik/traefik.git
 
 
-# Infrastructure As Code
+# IaC/CD
 - ArgoCD
 - https://argoproj.github.io/cd/
 
