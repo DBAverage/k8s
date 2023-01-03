@@ -8,3 +8,5 @@ spec:
   forwardAuth:
     address: http://keycloak.mushroomkingdom.com/realms/mushroom-kingdom
     trustForwardHeader: true
+    authResponseHeaders:
+      - X-Forwarded-User    
