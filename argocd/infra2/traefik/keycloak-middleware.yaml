@@ -1,0 +1,11 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: keycloak
+  namespace: traefik
+spec:
+  forwardAuth:
+    address: http://keycloak.mushroomkingdom.com/realms/mushroom-kingdom
+    trustForwardHeader: true
+    insecureSkipVerify: true
