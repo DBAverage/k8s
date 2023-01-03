@@ -8,4 +8,5 @@ spec:
   forwardAuth:
     address: http://keycloak.mushroomkingdom.com/realms/mushroom-kingdom
     trustForwardHeader: true
-    insecureSkipVerify: true
+    tls:
+      insecureSkipVerify: true
